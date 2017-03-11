@@ -61,7 +61,7 @@ export default (
   routeNames.forEach((routeName: string) => {
     let pathPattern = paths[routeName] || routeConfigs[routeName].path;
     const matchExact = !!pathPattern && !childRouters[routeName];
-    if (!pathPattern) {
+    if (typeof pathPattern !== 'string') {
       pathPattern = routeName;
     }
     const keys = [];
@@ -235,8 +235,8 @@ export default (
     ): { path: string, params?: NavigationParams } {
       const route = state.routes[state.index];
       const routeName = route.routeName;
-      const subPath = paths[routeName].toPath(route.params);
       const screen = getScreenForRouteName(routeConfigs, routeName);
+      const subPath = paths[routeName].toPath(route.params);
       let path = subPath;
       let params = route.params;
       if (screen && screen.router) {
